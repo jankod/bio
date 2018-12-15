@@ -7,12 +7,12 @@ spring:
       name: ja
       password: ja
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/bio?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
-    password: ja
-    hikari:
-      connection-init-sql: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/bio?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=UTC
+#    username: root
+#    password: ja
+#    hikari:
+#      connection-init-sql: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 
   jpa:
     properties:
@@ -28,11 +28,13 @@ spring:
 
 server:
   address: 127.0.0.1
-  port: 80
+  port: 8001
+  error:
+    whitelabel:
+      enabled: false
 debug: true
 
 logging:
   level:
     org.springframework.boot.autoconfigure: ERROR
-
 

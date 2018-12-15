@@ -1,0 +1,35 @@
+{% load static %}
+<div class="sidebar">
+    <nav class="sidebar-nav">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dashboard' %}">
+                    <i class="nav-icon icon-speedometer"></i> Dashboard
+                </a>
+            </li>
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'page1' %}">#}
+{#                    <i class="nav-icon icon-drop"></i> Page 1</a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'projects' %}">#}
+{#                    <i class="nav-icon fas fa-pencil-alt"></i> Projects old</a>#}
+{#            </li>#}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app_project_list' %}">
+                    <i class="nav-icon fas fa-pencil-alt"></i> Project</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link " href="{% url 'app_sample_list' %}">
+                    <i class="nav-icon fas fa-atom"></i> Samples</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app_samplefiles_list' %}">
+                    <i class="nav-icon fas fa-file"></i> Files</a>
+            </li>
+
+
+        </ul>
+    </nav>
+    <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+</div>

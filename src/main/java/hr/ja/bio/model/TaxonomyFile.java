@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
+//@FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +23,7 @@ public class TaxonomyFile extends AbstractPersistable<Long> {
 
 
     @Singular
-    @OneToMany(mappedBy = "file")
+    @OneToMany(mappedBy = "file", cascade = CascadeType.ALL)
     List<TaxonAbundance> taxonomies;
 
     @Column
@@ -35,6 +36,7 @@ public class TaxonomyFile extends AbstractPersistable<Long> {
         if (taxonomies == null) {
             taxonomies = new ArrayList<>(220);
         }
+        tax.setFile(this);
         taxonomies.add(tax);
     }
 }

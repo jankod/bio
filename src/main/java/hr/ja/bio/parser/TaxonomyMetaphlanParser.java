@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +23,7 @@ public class TaxonomyMetaphlanParser {
     }
 
 
-    public TaxonomyFile parse() throws FileNotFoundException {
+    public TaxonomyFile parse() throws IOException {
 
         TaxonomyFile file = new TaxonomyFile();
 
@@ -58,6 +57,7 @@ public class TaxonomyMetaphlanParser {
             }
         } catch (IOException e) {
             log.error("", e);
+            throw e;
         }
         return file;
     }
@@ -84,7 +84,7 @@ public class TaxonomyMetaphlanParser {
                 tax.setPhylum(rankName);
             }
             if (p.startsWith("c__")) {
-                tax.setClass_taxon(rankName);
+                tax.setClass_rank(rankName);
             }
             if (p.startsWith("o__")) {
                 tax.setOrder(rankName);
@@ -106,7 +106,7 @@ public class TaxonomyMetaphlanParser {
     }
 
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         String path = "C:\\Data\\PBF\\Projekti\\2018-UMCGMicrobiomeWeb\\example_data\\example1_metaphlan.txt";
         TaxonomyMetaphlanParser parser = new TaxonomyMetaphlanParser(path);
         TaxonomyFile taxonomyFile = parser.parse();

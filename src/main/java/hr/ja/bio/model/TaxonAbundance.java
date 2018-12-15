@@ -9,13 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+
 @Entity
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@ToString
+//@Builder
 public class TaxonAbundance extends AbstractPersistable<Long> {
 
     @Column
@@ -31,9 +31,9 @@ public class TaxonAbundance extends AbstractPersistable<Long> {
     String phylum;
 
     @Column(name = "class")
-    String class_taxon;
+    String class_rank;
 
-    @Column(name = "ord")
+    @Column(name = "order2")
     String order;
     @Column
     String family;

@@ -1,7 +1,11 @@
-# LOCAL
 spring:
   thymeleaf:
     cache: false
+
+  security:
+    user:
+      name: ja
+      password: ja
 
   datasource:
     url: jdbc:mysql://localhost:3306/bio?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=UTC
@@ -15,8 +19,20 @@ spring:
       hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
+      use-new-id-generator-mappings: true
+    show-sql: true
+  devtools:
+    restart:
+      log-condition-evaluation-delta: false
 
 
 server:
   address: 127.0.0.1
   port: 80
+debug: true
+
+logging:
+  level:
+    org.springframework.boot.autoconfigure: ERROR
+
+

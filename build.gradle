@@ -26,17 +26,19 @@ repositories {
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-//    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
     implementation('org.springframework.boot:spring-boot-starter-web')
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
-    //runtimeOnly('com.h2database:h2')
-    runtimeOnly('mysql:mysql-connector-java')
+    AruntimeOnly('com.h2database:h2')
+   // runtimeOnly('mysql:mysql-connector-java')
     compileOnly('org.projectlombok:lombok')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
   //  testImplementation('org.springframework.security:spring-security-test')
 
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+
+    implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 
 }

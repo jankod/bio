@@ -1,0 +1,146 @@
+{% load static %}
+<header class="app-header navbar">
+    <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">
+        {#        <img class="navbar-brand-full" src="{% static "img/logo.svg" %}" width="89" height="25" alt="CoreUI Logo">#}
+        {#        <img class="navbar-brand-minimized" src="img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">#}
+        MicroWeb
+    </a>
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="nav navbar-nav d-md-down-none">
+        {#        TOP NAVIGATIONS#}
+        <li class="nav-item px-3">
+            <a class="nav-link" href="https://coreui.io/demo/#main.html" >CORE UI</a>
+        </li>
+        <li>
+            <a href="https://coreui.io/admin-templates/bootstrap/root/demo/#charts.html">Core UI admin pro</a>
+        </li>
+        <li class="nav-item px-3">
+            <a class="nav-link" href="https://docs.google.com/document/d/1LGOQt_9YkFRBbwiscaItv9VXh0NWuueFunXd2VYH7sA/edit#">Docs</a>
+        </li>
+        <li class="nav-item px-3">
+            <a class="nav-link" href="https://bioinformaticsteamhq.slack.com/messages/CECAKBE7L/">Slack</a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item dropdown d-md-down-none">
+            <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                <i class="icon-bell"></i>
+                <span class="badge badge-pill badge-danger">5</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
+                <div class="dropdown-header text-center">
+                </div>
+                <a class="dropdown-item" href="#">
+                    <i class="icon-user-follow text-success"></i> New user registered</a>
+
+
+                <a class="dropdown-item" href="#">
+                    <div class="text-uppercase mb-1">
+                        <small>
+                            <b>Memory Usage</b>
+                        </small>
+                    </div>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 70%"
+                             aria-valuenow="70" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                    <small class="text-muted">11444GB/16384MB</small>
+                </a>
+
+            </div>
+        </li>
+        <li class="nav-item dropdown d-md-down-none">
+            <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                <i class="icon-list"></i>
+                <span class="badge badge-pill badge-warning">15</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
+                <div class="dropdown-header text-center">
+                    <strong>You have 5 pending tasks</strong>
+                </div>
+                <a class="dropdown-item" href="#">
+                    <div class="small mb-1">Upgrade NPM &amp; Bower
+                        <span class="float-right">
+                        <strong>0%</strong>
+                </span>
+                    </div>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="0"
+                             aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                </a>
+
+
+                <a class="dropdown-item" href="#">
+                    <div class="small mb-1">Add new layouts
+                        <span class="float-right">
+<strong>75%</strong>
+</span>
+                    </div>
+
+                </a>
+                <a class="dropdown-item" href="#">
+                    <div class="small mb-1">Angular 2 Cli Version
+                        <span class="float-right">
+<strong>100%</strong>
+</span>
+                    </div>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
+                             aria-valuenow="100" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                </a>
+                <a class="dropdown-item text-center" href="#">
+                    <strong>View all tasks</strong>
+                </a>
+            </div>
+        </li>
+
+
+        {#        User  Login button #}
+        {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                   aria-expanded="false">
+                    <img class="img-avatar" src="{% static "img/icons8-user-50.png" %}" alt="admin@bootstrapmaster.com">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header text-center">
+                        <strong>Account</strong>
+                    </div>
+
+                    {% if user.is_staff %}
+                        <a class="dropdown-item" href="{% url 'admin:index' %}">
+                            <i class="fas fa-user-cog"></i>
+                            Admin
+                        </a>
+                    {% endif %}
+
+
+                    <div class="divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <i class="fa fa-shield"></i> Lock Account</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">
+                        <i class="fas fa-lock"></i> Logout</a>
+                </div>
+            </li>
+        {% endif %}
+
+    </ul>
+    <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <button class="navbar-toggler aside-menu-toggler d-lg-none" type="button" data-toggle="aside-menu-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</header>

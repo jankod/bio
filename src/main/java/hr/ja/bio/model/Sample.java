@@ -20,11 +20,10 @@ public class Sample extends AbstractPersistable<Long> {
     String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "project_id")
     Project project;
 
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn()
+    @OneToMany(mappedBy = "sample", orphanRemoval = true)
     Set<SampleFile> sampleFiles;
 
 }

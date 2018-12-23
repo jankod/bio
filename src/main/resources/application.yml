@@ -6,9 +6,7 @@ spring:
     cache: false
 
   security:
-    user:
-      name: ja
-      password: ja
+
 
   datasource:
     url: jdbc:mysql://localhost:3306/bio?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=UTC
@@ -23,7 +21,7 @@ spring:
     hibernate:
       ddl-auto: validate
       use-new-id-generator-mappings: true
-    show-sql: false
+    show-sql: true
   devtools:
     restart:
       log-condition-evaluation-delta: false
@@ -38,7 +36,7 @@ server:
   port: 8001
   error:
     whitelabel:
-      enabled: false
+      enabled: true
 
 debug: true
 
@@ -46,6 +44,6 @@ debug: true
 logging:
   level:
     org.springframework.boot.autoconfigure: ERROR
-    org.springframework: WARN
+    org.springframework.boot: WARN
 
 

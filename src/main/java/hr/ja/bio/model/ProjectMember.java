@@ -13,16 +13,16 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "project_id"})})
+//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {})})
 public class ProjectMember extends AbstractPersistable<Long> {
 
-    @OneToOne()
+    @ManyToOne
     User user;
 
     @Enumerated(EnumType.STRING)
     ProjectRoleEnum role;
 
-    @OneToOne
+    @ManyToOne
     Project project;
 
 }

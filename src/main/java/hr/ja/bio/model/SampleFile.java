@@ -16,7 +16,7 @@ import java.util.List;
 public class SampleFile extends AbstractPersistable<Long> {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "sample_id")
     Sample sample;
 
     @Column

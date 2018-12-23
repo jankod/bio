@@ -12,19 +12,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 //@Builder
+@Table(name = "taxonomy_abundance")
 public class TaxonomyAbundance extends AbstractPersistable<Long> {
 
     @Column
     Double abundance;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "file_id")
     SampleFile file;
 
     @Column(name = "rank1_kingdom")
-    String kingdom;
+    String rank1_kingdom;
+
     @Column(name = "rank2_phylum")
-    String phylum;
+    String rank2_phylum;
 
     @Column(name = "rank3_class")
     String rank3_class;

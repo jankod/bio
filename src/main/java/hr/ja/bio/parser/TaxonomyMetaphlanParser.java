@@ -80,10 +80,10 @@ public class TaxonomyMetaphlanParser {
 
 
             if (p.startsWith("k__")) {
-                tax.setKingdom(rankName);
+                tax.setRank1_kingdom(rankName);
             }
             if (p.startsWith("p__")) {
-                tax.setPhylum(rankName);
+                tax.setRank2_phylum(rankName);
             }
             if (p.startsWith("c__")) {
                 tax.setRank3_class(rankName);

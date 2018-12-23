@@ -1,2 +1,6 @@
-ARTICLES:
+ FILOVI:
+
+C:\Data\PBF\Projekti\2018-UMCGMicrobiomeWeb
+
+ ARTICLES:
 https://javabeginnerstutorial.com/spring-boot/making-spring-boot-thymeleaf-crud-application/

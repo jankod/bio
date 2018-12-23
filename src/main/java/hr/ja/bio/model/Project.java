@@ -24,12 +24,10 @@ public class Project extends AbstractPersistable<Long> implements Serializable {
     String name;
 
 
-    @OneToMany()
-    @JoinColumn()
+    @OneToMany( mappedBy = "project")
     Set<ProjectMember> members;
 
-    @OneToMany()
-    @JoinColumn
+    @OneToMany(mappedBy = "project")
     Set<Sample> samples;
 
     public void addSample(Sample sample) {

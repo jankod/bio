@@ -1,6 +1,6 @@
-package hr.ja.bio.model;
+package hr.ja.bio.model.util;
 
-public enum TaxRank {
+public enum TaxRankEnum {
 
     KINGDOM('k', 1),
     PHYLUM('p', 2),
@@ -14,7 +14,7 @@ public enum TaxRank {
     private char charName;
     private int order;
 
-    TaxRank(char charName, int order) {
+    TaxRankEnum(char charName, int order) {
         this.charName = charName;
         this.order = order;
     }

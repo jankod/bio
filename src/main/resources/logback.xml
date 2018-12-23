@@ -8,11 +8,15 @@
         </encoder>
     </appender>
 
-    <logger name="hr.ja" level="debug"/>
+    <logger name="hr.ja" level="DEBUG"/>
     <logger name="org.springframework" level="INFO"/>
+    <logger name="org.apache.juli" level="WARN"/>
+    <logger name="com.zaxxer.hikari" level="WARN"/>
 
 
-    <root level="INFO">
+
+
+    <root level="WARN">
         <appender-ref ref="CONSOLE"/>
         <!--<appender-ref ref="FILE" />-->
     </root>

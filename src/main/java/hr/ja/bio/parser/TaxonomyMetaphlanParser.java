@@ -1,7 +1,7 @@
 package hr.ja.bio.parser;
 
-import hr.ja.bio.model.TaxonAbundance;
-import hr.ja.bio.model.TaxonomyFile;
+import hr.ja.bio.model.TaxonomyAbundance;
+import hr.ja.bio.model.SampleFile;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -23,9 +23,8 @@ public class TaxonomyMetaphlanParser {
     }
 
 
-    public TaxonomyFile parse() throws IOException {
-
-        TaxonomyFile file = new TaxonomyFile();
+    public TaxonomyAbundanceParseResult parse() throws IOException {
+        TaxonomyAbundanceParseResult result = new TaxonomyAbundanceParseResult();
 
         try (FileReader input = new FileReader(path)) {
             List<String> lines = IOUtils.readLines(input);
@@ -33,7 +32,8 @@ public class TaxonomyMetaphlanParser {
                 try {
                     if (line.startsWith("#SampleID")) {
                         String[] split = StringUtils.split(line, "\t");
-                        file.setIdName(split[1].trim());
+                        String sampleName = split[1].trim();
+                        result.setSampleName(sampleName);
                         continue;
                     }
                     if (line.startsWith("#")) {
@@ -45,10 +45,12 @@ public class TaxonomyMetaphlanParser {
                     }
                     String[] split = StringUtils.split(line, "\t");
                     String path = split[0];
-                    TaxonAbundance tax = new TaxonAbundance();
-                    file.addTaxonAbundance(tax);
-                    parseAndAddPath(path, tax);
+                    TaxonomyAbundance tax = new TaxonomyAbundance();
+
+                    result.addTaxonAbundance(tax);
+
                     tax.setAbundance(Double.parseDouble(split[1].trim()));
+                    parseAndAddPath(path, tax);
 
 
                 } catch (Throwable e) {
@@ -59,10 +61,10 @@ public class TaxonomyMetaphlanParser {
             log.error("", e);
             throw e;
         }
-        return file;
+        return result;
     }
 
-    private void parseAndAddPath(String path, TaxonAbundance tax) {
+    private void parseAndAddPath(String path, TaxonomyAbundance tax) {
         String[] split = StringUtils.splitByWholeSeparator(path, "|");
         for (String p : split) {
             String rankName = p.substring(3);
@@ -70,11 +72,11 @@ public class TaxonomyMetaphlanParser {
 //            k__	kingdom
 //            p__	phylum
 //            c__	class
-//            o__	order
-//            f__	family
-//            g__	genus
-//            s__	species
-//            t__	strain
+//            o__	rank4_order
+//            f__	rank5_family
+//            g__	rank6_genus
+//            s__	rank6_species
+//            t__	rank7_strain
 
 
             if (p.startsWith("k__")) {
@@ -84,22 +86,22 @@ public class TaxonomyMetaphlanParser {
                 tax.setPhylum(rankName);
             }
             if (p.startsWith("c__")) {
-                tax.setClass_rank(rankName);
+                tax.setRank3_class(rankName);
             }
             if (p.startsWith("o__")) {
-                tax.setOrder(rankName);
+                tax.setRank4_order(rankName);
             }
             if (p.startsWith("f__")) {
-                tax.setFamily(rankName);
+                tax.setRank5_family(rankName);
             }
             if (p.startsWith("g__")) {
-                tax.setGenus(rankName);
+                tax.setRank6_genus(rankName);
             }
             if (p.startsWith("s__")) {
-                tax.setSpecies(rankName);
+                tax.setRank6_species(rankName);
             }
             if (p.startsWith("t__")) {
-                tax.setStrain(rankName);
+                tax.setRank7_strain(rankName);
             }
         }
 
@@ -109,8 +111,8 @@ public class TaxonomyMetaphlanParser {
     public static void main(String[] args) throws IOException {
         String path = "C:\\Data\\PBF\\Projekti\\2018-UMCGMicrobiomeWeb\\example_data\\example1_metaphlan.txt";
         TaxonomyMetaphlanParser parser = new TaxonomyMetaphlanParser(path);
-        TaxonomyFile taxonomyFile = parser.parse();
-        log.debug(taxonomyFile.toString());
+        TaxonomyAbundanceParseResult r = parser.parse();
+        log.debug(r.toString());
     }
 
 }

@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "bio.load-database",
+      "type": "java.lang.Boolean",
+      "description": "Description for bio.load-database."
+    }
+  ]
+}

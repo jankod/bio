@@ -7,7 +7,7 @@ Encore
     .setOutputPath(dirDist)
     // public path used by the web server to access the output path
     //.setPublicPath('/static/build/')
-    .setPublicPath('/')
+    .setPublicPath('/dist')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 

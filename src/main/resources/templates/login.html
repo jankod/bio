@@ -1,23 +1,49 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<!DOCTYPE HTML>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta charset="UTF-8">
-    <title>Login page</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" href="">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link th:href="@{/dist/base.css}" rel="stylesheet">
+    <!--<link rel="stylesheet" href="{% static "fontawesome-free/css/solid.min.css" %}">-->
+    <!--<link rel="stylesheet" href="{% static "fontawesome-free/css/fontawesome.min.css" %}">-->
+    <title>Microbiome web</title>
+
 </head>
-<body>
 
 
-<div th:if="${param.error}">
-    Invalid username and password.
+<body class="app flex-row align-items-center">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card-group">
+                <div class="card p-4">
+                    <div class="card-body">
+
+
+                        <div th:if="${param.error}">
+                            Invalid username and password.
+                        </div>
+                        <div th:if="${param.logout}">
+                            You have been logged out.
+                        </div>
+                        <form th:action="@{/login}" method="post">
+                            <div><label> User Name : <input type="text" name="username"/> </label></div>
+                            <div><label> Password: <input type="password" name="password"/> </label></div>
+                            <div><input type="submit" value="Sign In"/></div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+<script th:src="@{/dist/base.js}"></script>
+<script th:src="@{/dist/runtime.js}"></script>
 </body>
 </html>

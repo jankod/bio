@@ -1,3 +1,6 @@
+bio:
+  load-database: false
+
 spring:
   thymeleaf:
     cache: false
@@ -7,23 +10,27 @@ spring:
       name: ja
       password: ja
 
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/bio?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=UTC
-#    username: root
-#    password: ja
-#    hikari:
-#      connection-init-sql: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+  datasource:
+    url: jdbc:mysql://localhost:3306/bio?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: ja
+    hikari:
+      connection-init-sql: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 
   jpa:
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
       use-new-id-generator-mappings: true
-    show-sql: true
+    show-sql: false
   devtools:
     restart:
       log-condition-evaluation-delta: false
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: lazy
 
 
 server:
@@ -32,9 +39,13 @@ server:
   error:
     whitelabel:
       enabled: false
+
 debug: true
 
+#
 logging:
   level:
     org.springframework.boot.autoconfigure: ERROR
+    org.springframework: WARN
+
 

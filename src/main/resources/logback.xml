@@ -9,7 +9,7 @@
     </appender>
 
     <logger name="hr.ja" level="DEBUG"/>
-    <!--<logger name="org.springframework" level="INFO"/>-->
+    <logger name="org.springframework" level="INFO"/>
     <logger name="org.apache.juli" level="WARN"/>
     <logger name="com.zaxxer.hikari" level="WARN"/>
 

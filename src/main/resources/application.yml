@@ -45,6 +45,6 @@ logging:
   level:
     org.springframework.boot.autoconfigure: ERROR
     org.springframework.boot: WARN
-    org.springframework.security: DEBUG
+#    org.springframework.security: DEBUG
 
 

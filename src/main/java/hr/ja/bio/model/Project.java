@@ -27,7 +27,7 @@ public class Project extends AbstractPersistable<Long> implements Serializable {
     @OneToMany( mappedBy = "project")
     Set<ProjectMember> members;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", orphanRemoval = true)
     Set<Sample> samples;
 
     public void addSample(Sample sample) {

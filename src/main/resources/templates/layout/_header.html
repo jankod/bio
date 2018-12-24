@@ -1,26 +1,31 @@
-{% load static %}
+<!DOCTYPE HTML>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+<body>
 <header class="app-header navbar">
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#">
-        {#        <img class="navbar-brand-full" src="{% static "img/logo.svg" %}" width="89" height="25" alt="CoreUI Logo">#}
-        {#        <img class="navbar-brand-minimized" src="img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">#}
-        MicroWeb
+        <!--<img class="navbar-brand-full" th:src="@{img/logo.svg}" src="../../static/img/logo.svg" width="89" height="25" alt="Bio">-->
+        <!--<img class="navbar-brand-minimized" src="img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">-->
+        Bio
     </a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
         <span class="navbar-toggler-icon"></span>
     </button>
     <ul class="nav navbar-nav d-md-down-none">
-        {#        TOP NAVIGATIONS#}
+
         <li class="nav-item px-3">
-            <a class="nav-link" href="https://coreui.io/demo/#main.html" >CORE UI</a>
+            <a class="nav-link" href="https://coreui.io/demo/#main.html">CORE UI</a>
         </li>
         <li>
             <a href="https://coreui.io/admin-templates/bootstrap/root/demo/#charts.html">Core UI admin pro</a>
         </li>
         <li class="nav-item px-3">
-            <a class="nav-link" href="https://docs.google.com/document/d/1LGOQt_9YkFRBbwiscaItv9VXh0NWuueFunXd2VYH7sA/edit#">Docs</a>
+            <a class="nav-link"
+               href="https://docs.google.com/document/d/1LGOQt_9YkFRBbwiscaItv9VXh0NWuueFunXd2VYH7sA/edit#">Docs</a>
         </li>
         <li class="nav-item px-3">
             <a class="nav-link" href="https://bioinformaticsteamhq.slack.com/messages/CECAKBE7L/">Slack</a>
@@ -107,34 +112,35 @@
         </li>
 
 
-        {#        User  Login button #}
-        {% if user.is_authenticated %}
-            <li class="nav-item dropdown">
-                <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false">
-                    <img class="img-avatar" src="{% static "img/icons8-user-50.png" %}" alt="admin@bootstrapmaster.com">
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-header text-center">
-                        <strong>Account</strong>
-                    </div>
-
-                    {% if user.is_staff %}
-                        <a class="dropdown-item" href="{% url 'admin:index' %}">
-                            <i class="fas fa-user-cog"></i>
-                            Admin
-                        </a>
-                    {% endif %}
-
-
-                    <div class="divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-shield"></i> Lock Account</a>
-                    <a class="dropdown-item" href="{% url 'logout' %}">
-                        <i class="fas fa-lock"></i> Logout</a>
+        <!--{# User Login button #}-->
+        <!--{% if user.is_authenticated %}-->
+        <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+            <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                <img class="img-avatar" src="" th:src="@{img/icons8-user-50.png}" alt="admin@bootstrapmaster.com">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header text-center">
+                    <strong>Account</strong>
                 </div>
-            </li>
-        {% endif %}
+
+                <!--{% if user.is_staff %}-->
+                <a class="dropdown-item" href="admin:index">
+                    <i class="fas fa-user-cog"></i>
+                    Admin <span sec:authentication="name"></span>
+                </a>
+                <!--{% endif %}-->
+
+
+                <div class="divider"></div>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-shield"></i> Lock Account</a>
+
+                <a class="dropdown-item" href="logout" th:href="@{/logout}">
+                    <i class="fas fa-lock"></i> Sign Out</a>
+            </div>
+        </li>
+        <!--{% endif %}-->
 
     </ul>
     <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
@@ -144,3 +150,5 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 </header>
+</body>
+</html>

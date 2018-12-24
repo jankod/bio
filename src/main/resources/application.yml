@@ -36,7 +36,7 @@ server:
   port: 8001
   error:
     whitelabel:
-      enabled: true
+      enabled: false
 
 debug: true
 
@@ -45,5 +45,6 @@ logging:
   level:
     org.springframework.boot.autoconfigure: ERROR
     org.springframework.boot: WARN
+    org.springframework.security: DEBUG
 
 

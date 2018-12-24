@@ -7,21 +7,21 @@
     <nav class="sidebar-nav">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'dashboard' %}">
+                <a class="nav-link" href="dashboard" th:href="@{/}">
                     <i class="nav-icon icon-speedometer"></i> Dashboard
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'app_project_list' %}">
+                <a class="nav-link" href="app_project_list">
                     <i class="nav-icon fas fa-pencil-alt"></i> Project</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link " href="{% url 'app_sample_list' %}">
+                <a class="nav-link " href="app_sample_list">
                     <i class="nav-icon fas fa-atom"></i> Samples</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'app_samplefiles_list' %}">
+                <a class="nav-link" href="app_samplefiles_list">
                     <i class="nav-icon fas fa-file"></i> Files</a>
             </li>
 

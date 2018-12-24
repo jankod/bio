@@ -1,6 +1,7 @@
 package hr.ja.bio.model.util;
 
 import hr.ja.bio.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@Slf4j
 public class MyUserDetails implements UserDetails {
 
 
@@ -21,7 +23,7 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
+        log.debug("Trazi rolu: "+ user.getRole());
         List<GrantedAuthority> authorities = new ArrayList<>(1);
         authorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + user.getRole().name()));
 

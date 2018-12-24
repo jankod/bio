@@ -45,7 +45,7 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
 
-    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.4.RELEASE')
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
 
 
 }

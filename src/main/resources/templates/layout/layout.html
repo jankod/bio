@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/x-icon" href="">
+    <link rel="icon" type="image/x-icon" href="../../static/img/favicon.ico" th:href="@{img/favicon.ico}">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link th:href="@{/dist/base.css}" rel="stylesheet">
@@ -15,15 +15,54 @@
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+<div th:replace="layout/_header :: header"></div>
 <div class="app-body">
     <div th:replace="layout/_sidebar :: sidebar">sidebar</div>
 
-    <section layout:fragment="content">
-        <h1>Home page index</h1>
-    </section>
+
+    <main class="main">
+
+        <!--{% include "_breadcrumb.html" %}-->
+        <div class="container-fluid">
+            <div id="ui-view">
+                <section layout:fragment="content">
+                    <h1>Home page index</h1>
+                </section>
+            </div>
+        </div>
+    </main>
+    {% include "_aside_menu.html" %}
+
+
 </div>
+
+
+<!--{% block footer %}-->
+<footer class="app-footer">
+    <div>
+        <a href="#">UMCGMicrobiomeWeb</a>
+        <span>© 2018 creativeLabs.</span>
+    </div>
+    <div class="m-2">User: {{ user }}
+    </div>
+    <div class="ml-auto">
+        <span>Powered by</span>
+        <a href="#">UMCGMicrobiomeWeb</a>
+    </div>
+</footer>
+<!--{% endblock %}-->
 
 <script th:src="@{/dist/base.js}"></script>
 <script th:src="@{/dist/runtime.js}"></script>
+
+<script>
+    $(function () {
+    });
+
+</script>
+
+<!--{% block last_script %}-->
+
+<!--{% endblock %}-->
 </body>
 </html>

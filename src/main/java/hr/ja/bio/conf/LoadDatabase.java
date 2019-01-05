@@ -2,8 +2,8 @@ package hr.ja.bio.conf;
 
 import hr.ja.bio.model.*;
 import hr.ja.bio.model.util.ProjectRoleEnum;
-import hr.ja.bio.parser.TaxonomyAbundanceParseResult;
-import hr.ja.bio.parser.TaxonomyMetaphlanParser;
+import hr.ja.bio.parser.TaxonomyAbundanceResult;
+import hr.ja.bio.parser.TaxonomyAbundanceParser;
 import hr.ja.bio.repository.*;
 import hr.ja.bio.service.MyUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import java.io.File;
 class LoadDatabase {
 
     @Autowired
-    TaxonomyFileRepository taxonomyFileRepository;
+    SampleFileRepository taxonomyFileRepository;
 
     @Autowired
     TaxonAbundanceRepository taxonAbundanceRepository;
@@ -60,7 +60,7 @@ class LoadDatabase {
 
                     sample.setName("sample 1");
 
-                    project.setName("project 1");
+                    project.setName("projects 1");
 
 
                     projectRepository.save(project);
@@ -78,8 +78,8 @@ class LoadDatabase {
 
                 {// parse
                     String path = "C:\\Data\\PBF\\Projekti\\2018-UMCGMicrobiomeWeb\\example_data\\example1_metaphlan.txt";
-                    TaxonomyMetaphlanParser parser = new TaxonomyMetaphlanParser(path);
-                    TaxonomyAbundanceParseResult result = parser.parse();
+                    TaxonomyAbundanceParser parser = new TaxonomyAbundanceParser(path);
+                    TaxonomyAbundanceResult result = parser.parse();
 
                     SampleFile sampleFile = new SampleFile();
                     sampleFile.setFileName(new File(path).getName());

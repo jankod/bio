@@ -1,4 +1,4 @@
-package hr.ja.bio.conf;
+package hr.ja.bio.security;
 
 import hr.ja.bio.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity()
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -23,16 +23,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-
                 .authorizeRequests()
                 .antMatchers("/", "/home", "/img/**", "/dist/**")
                 .permitAll()
 
+
                 .antMatchers("/user/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
-
+                .antMatchers("/projects/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
-
                 .and()
                 .formLogin()
                 .loginPage("/login")

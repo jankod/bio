@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+</head>
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+<section layout:fragment="content">
+    New project
+
+    <!--/*@thymesVar id="projectForm" type="hr.ja.bio.form.ProjectForm"*/-->
+    <form th:action="@{/addProject}" th:object="${projectForm}" method="POST">
+        <input type="text" name="name">
+
+        <input type="submit">
+    </form>
+</section>
+
+</body>
+</html>

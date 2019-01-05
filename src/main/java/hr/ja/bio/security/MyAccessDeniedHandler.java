@@ -1,4 +1,4 @@
-package hr.ja.bio.util;
+package hr.ja.bio.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
@@ -17,6 +17,8 @@ import java.io.IOException;
 public class MyAccessDeniedHandler implements AccessDeniedHandler {
 
 
+
+
     @Override
     public void handle(HttpServletRequest httpServletRequest,
                        HttpServletResponse httpServletResponse,
@@ -26,7 +28,7 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
                 = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null) {
-            log.info("User '" + auth.getName()
+            log.info("User '" + auth.getName() + " "+ auth.getAuthorities() + " "+ auth.getCredentials()
                     + "' attempted to access the protected URL: "
                     + httpServletRequest.getRequestURI());
         }else  {

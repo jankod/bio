@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@Table(name = "sample")
+@Table()
 public class Sample extends AbstractPersistable<Long> {
 
     @Column
@@ -24,7 +24,7 @@ public class Sample extends AbstractPersistable<Long> {
     @JoinColumn(name = "project_id")
     Project project;
 
-    @OneToMany(mappedBy = "sample", orphanRemoval = true)
-    Set<SampleFile> sampleFiles;
+//    @OneToMany(mappedBy = "sample", orphanRemoval = true)
+//    Set<SampleFile> sampleFiles;
 
 }

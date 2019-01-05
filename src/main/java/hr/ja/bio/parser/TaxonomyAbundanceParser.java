@@ -1,30 +1,28 @@
 package hr.ja.bio.parser;
 
+
 import hr.ja.bio.model.TaxonomyAbundance;
-import hr.ja.bio.model.SampleFile;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-
-public class TaxonomyMetaphlanParser {
-    private static final Logger log = LoggerFactory.getLogger(TaxonomyMetaphlanParser.class);
+@Slf4j
+public class TaxonomyAbundanceParser {
 
 
     private String path;
 
-    public TaxonomyMetaphlanParser(String path) {
+    public TaxonomyAbundanceParser(String path) {
         this.path = path;
     }
 
 
-    public TaxonomyAbundanceParseResult parse() throws IOException {
-        TaxonomyAbundanceParseResult result = new TaxonomyAbundanceParseResult();
+    public TaxonomyAbundanceResult parse() throws IOException {
+        TaxonomyAbundanceResult result = new TaxonomyAbundanceResult();
 
         try (FileReader input = new FileReader(path)) {
             List<String> lines = IOUtils.readLines(input);
@@ -64,7 +62,7 @@ public class TaxonomyMetaphlanParser {
         return result;
     }
 
-    private void parseAndAddPath(String path, TaxonomyAbundance tax) {
+    public static void parseAndAddPath(String path, TaxonomyAbundance tax) {
         String[] split = StringUtils.splitByWholeSeparator(path, "|");
         for (String p : split) {
             String rankName = p.substring(3);
@@ -110,8 +108,8 @@ public class TaxonomyMetaphlanParser {
 
     public static void main(String[] args) throws IOException {
         String path = "C:\\Data\\PBF\\Projekti\\2018-UMCGMicrobiomeWeb\\example_data\\example1_metaphlan.txt";
-        TaxonomyMetaphlanParser parser = new TaxonomyMetaphlanParser(path);
-        TaxonomyAbundanceParseResult r = parser.parse();
+        TaxonomyAbundanceParser parser = new TaxonomyAbundanceParser(path);
+        TaxonomyAbundanceResult r = parser.parse();
         log.debug(r.toString());
     }
 

@@ -4,6 +4,11 @@
       "name": "bio.load-database",
       "type": "java.lang.Boolean",
       "description": "Description for bio.load-database."
+    },
+    {
+      "name": "bio.upload-dir",
+      "type": "java.lang.String",
+      "description": "Description for bio.upload-dir."
     }
   ]
 }

@@ -33,6 +33,10 @@ Encore
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
 
+    //.disableFontsLoader()
+   // .disableSingleRuntimeChunk()
+   // .disableImagesLoader()
+
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)

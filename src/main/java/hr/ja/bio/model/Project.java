@@ -30,10 +30,14 @@ public class Project extends AbstractPersistable<Long> implements Serializable {
     @OneToMany(mappedBy = "project", orphanRemoval = true)
     Set<Sample> samples;
 
+
+
     public void addSample(Sample sample) {
         if(samples == null) {
             samples = new HashSet<>(3);
         }
+
+
         samples.add(sample);
         sample.setProject(this);
     }

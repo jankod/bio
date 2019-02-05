@@ -1,9 +1,8 @@
-package hr.ja.bio.model.util;
+package hr.ja.bio.parser.model;
 
-public enum FileTypeEnum {
+public enum SampleFileType {
     TAXONOMY,
     PATHWAY,
     TAXONOMY_MERGED,
     PATHWAY_MERGED
-
 }

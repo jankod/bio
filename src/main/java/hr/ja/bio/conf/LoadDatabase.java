@@ -1,9 +1,9 @@
 package hr.ja.bio.conf;
 
 import hr.ja.bio.model.*;
-import hr.ja.bio.model.util.ProjectRoleEnum;
-import hr.ja.bio.parser.TaxonomyAbundanceResult;
-import hr.ja.bio.parser.TaxonomyAbundanceParser;
+import hr.ja.bio.model.util.ProjectRole;
+import hr.ja.bio.parser.old.TaxonomyAbundanceResult;
+import hr.ja.bio.parser.old.TaxonomyAbundanceParser;
 import hr.ja.bio.repository.*;
 import hr.ja.bio.service.MyUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
@@ -69,28 +69,28 @@ class LoadDatabase {
 
 
                     ProjectMember projectMember = new ProjectMember();
-                    projectMember.setRole(ProjectRoleEnum.ADMIN);
+                    projectMember.setRole(ProjectRole.ADMIN);
                     projectMember.setUser(u1);
+                    projectMember.setProject(project);
                     projectMemberRepository.save(projectMember);
 
 
                 }
 
                 {// parse
-                    String path = "C:\\Data\\PBF\\Projekti\\2018-UMCGMicrobiomeWeb\\example_data\\example1_metaphlan.txt";
-                    TaxonomyAbundanceParser parser = new TaxonomyAbundanceParser(path);
-                    TaxonomyAbundanceResult result = parser.parse();
+//                    String path = "C:\\Data\\PBF\\Projekti\\2018-UMCGMicrobiomeWeb\\example_data\\example1_metaphlan.txt";
+//                    TaxonomyAbundanceParser parser = new TaxonomyAbundanceParser(path);
+//                    TaxonomyAbundanceResult result = parser.parse();
+//
+//                    SampleFile sampleFile = new SampleFile();
+//                    sampleFile.setFileName(new File(path).getName());
+//                    sample.setProject(project);
+//                    taxonomyFileRepository.saveAndFlush(sampleFile);
 
-                    SampleFile sampleFile = new SampleFile();
-                    sampleFile.setFileName(new File(path).getName());
-                    sampleFile.setSample(sample);
-                    taxonomyFileRepository.saveAndFlush(sampleFile);
-
-
-                    for(TaxonomyAbundance ta: result.getTaxonomyAbundances()) {
-                        ta.setFile(sampleFile);
-                    }
-                    taxonAbundanceRepository.saveAll(result.getTaxonomyAbundances());
+//                    for(LineageAbundance ta: result.getLineageAbundances()) {
+//                        ta.setSample(sample);
+//                    }
+//                    taxonAbundanceRepository.saveAll(result.getLineageAbundances());
 
                 }
 

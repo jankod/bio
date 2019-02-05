@@ -1,5 +1,5 @@
 package hr.ja.bio.model.util;
 
-public enum ProjectRoleEnum {
+public enum ProjectRole {
     ADMIN, PARTICIPANT
 }

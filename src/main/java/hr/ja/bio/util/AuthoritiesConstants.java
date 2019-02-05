@@ -1,4 +1,4 @@
-package hr.ja.bio;
+package hr.ja.bio.util;
 
 /**
  * Constants for Spring Security authorities.

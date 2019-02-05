@@ -1,21 +1,24 @@
 package hr.ja.bio.model;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table()
 @Getter
 @Setter
 @ToString(exclude = "password")
 @NoArgsConstructor
-public class User extends AbstractPersistable<Long> {
+public class User extends AbstractPersistable<Long> implements Serializable {
 
 
     @Column(nullable = false, unique = true)

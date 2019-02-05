@@ -7,15 +7,15 @@ import lombok.ToString;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 
 @Entity
 @Getter
 @Setter
-@ToString
 @Table()
-public class Sample extends AbstractPersistable<Long> {
+public class Sample extends AbstractPersistable<Long> implements Serializable {
 
     @Column
     String name;

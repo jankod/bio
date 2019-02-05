@@ -1,28 +1,29 @@
 package hr.ja.bio.model;
 
-import hr.ja.bio.model.util.ProjectRoleEnum;
+import hr.ja.bio.model.util.ProjectRole;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
-@ToString
 @Entity
-//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {})})
-public class ProjectMember extends AbstractPersistable<Long> {
+//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "project_id"})})
+@Table
+public class ProjectMember extends AbstractPersistable<Long> implements Serializable {
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     User user;
 
     @Enumerated(EnumType.STRING)
-    ProjectRoleEnum role;
+    ProjectRole role;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     Project project;
+
 
 }

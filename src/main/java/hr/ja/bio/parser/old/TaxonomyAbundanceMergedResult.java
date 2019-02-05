@@ -1,4 +1,4 @@
-package hr.ja.bio.parser;
+package hr.ja.bio.parser.old;
 
 
 import lombok.Data;

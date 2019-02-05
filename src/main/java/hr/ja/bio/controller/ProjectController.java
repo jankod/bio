@@ -4,122 +4,152 @@ import hr.ja.bio.conf.BioConfig;
 import hr.ja.bio.form.FileUploadForm;
 import hr.ja.bio.form.ProjectForm;
 import hr.ja.bio.model.Project;
-import hr.ja.bio.model.SampleFile;
-import hr.ja.bio.model.util.FileTypeEnum;
-import hr.ja.bio.parser.FilesParser;
+import hr.ja.bio.model.User;
+import hr.ja.bio.parser.SampleFileParserUtil;
 import hr.ja.bio.parser.ParseSampleFileException;
+import hr.ja.bio.parser.old.TaxonomyAbundanceParser;
+import hr.ja.bio.parser.old.TaxonomyAbundanceResult;
+import hr.ja.bio.repository.ProjectMemberRepository;
+import hr.ja.bio.repository.ProjectRepository;
+import hr.ja.bio.repository.SampleFileRepository;
+import hr.ja.bio.repository.SampleRepository;
+import hr.ja.bio.security.SecurityUtils;
 import hr.ja.bio.service.ProjectService;
+import hr.ja.bio.parser.model.SampleFileType;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
-import java.io.IOException;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
-@Controller()
+@Controller
 @RequestMapping("/projects")
 public class ProjectController {
 
-    @Autowired
-    ProjectService projectService;
-    private BioConfig config;
+	@Autowired ProjectService projectService;
 
+	@Autowired ProjectRepository projectRepository;
 
-    @Autowired
-    public ProjectController(BioConfig config) {
-        this.config = config;
-    }
+	@Autowired SampleRepository sampleRepository;
 
-    @GetMapping("/addProject")
-    public String showAddProject(Model model) {
-        model.addAttribute("projectForm", new ProjectForm());
-        return "projects/new_project.html";
-    }
+	@Autowired SampleFileRepository sampleFileRepository;
 
-    @PostMapping("addProject")
-    public String saveForm(@ModelAttribute("projectForm") ProjectForm form) {
+	@Autowired ProjectMemberRepository projectMemberRepository;
 
-        Project p = new Project();
-        p.setName(form.getName());
+	private BioConfig config;
 
+	@Autowired
+	public ProjectController(BioConfig config) {
+		this.config = config;
+	}
 
-        return "redirect:/projects/list";
-    }
+	@GetMapping("")
+	public String listProjects(Model model) {
+		User user = SecurityUtils.getCurrentUser();
+		log.debug("Current user {}", user);
+		List<Project> projects = projectService.getProjectsFromUser(user);
+		model.addAttribute("projects", projects);
+		log.debug("evo list projects {}", projects);
 
-    @GetMapping("list")
-    public String projectList(Model model) {
-        List<Project> projects = projectService.getMyProjects();
-        model.addAttribute("projects", projects);
-        log.debug("evo list projects");
+		return "projects/list_projects";
+	}
 
-        return "projects/list_projects";
-    }
+	@GetMapping("/new-project")
+	public String newProject(Model model) {
+		model.addAttribute("projectForm", new ProjectForm());
 
+		return "projects/new_project.html";
+	}
 
-    @GetMapping("/upload-files")
-    public String showFileuploadForm() {
-        return "/projects/upload-files";
-    }
+	@PostMapping("")
+	public String processProject(@Valid @ModelAttribute("projectForm") ProjectForm form, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			log.debug("Imam erroroe " + bindingResult.toString());
+			return "projects/new_project.html";
+		}
 
+		projectService.saveProject(form);
 
-    @PostMapping(value = "/save-files")
-    public String fileSave(@ModelAttribute("uploadForm") FileUploadForm uploadForm,
-                           Model map, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-        String saveDirectory = "c:/tmp/";
+		return "redirect:/projects";
+	}
 
-        saveDirectory = config.getUploadDir();
-        log.debug("save directory  {}", saveDirectory);
+	@GetMapping("{projectId}/upload-files")
+	public String showFileuploadForm(@PathVariable Long projectId, Model model) {
+		Project project = projectRepository.getOne(projectId);
+		model.addAttribute("project", project);
 
-        List<MultipartFile> files = uploadForm.getFiles();
+		return "/projects/upload-files";
+	}
 
-        List<String> fileNames = new ArrayList<>();
+	@PostMapping(value = "/new-files")
+	public String fileSave(@ModelAttribute("uploadForm") FileUploadForm uploadForm, Model map,
+			RedirectAttributes redirectAttributes, BindingResult bindingResult)
+			throws IllegalStateException, IOException {
 
-        if (null != files && files.size() > 0) {
-            for (MultipartFile multipartFile : files) {
+		Project project = projectRepository.getOne(uploadForm.getProjectId());
+		if (project == null) {
+			throw new RuntimeException("Project not find with id " + uploadForm.getProjectId());
+		}
 
-                String fileName = multipartFile.getOriginalFilename();
-                if (!"".equalsIgnoreCase(fileName)) {
+		@NotNull String saveDirectory = config.getUploadDir();
+		log.debug("save directory  {}", saveDirectory);
 
+		List<MultipartFile> files = uploadForm.getFiles();
 
-                    try {
-                        List<String> lines = FilesParser.getLines(multipartFile.getResource());
-                        FileTypeEnum type = FilesParser.detectType(lines);
+		List<String> fileNames = new ArrayList<>();
 
+		if (null != files && files.size() > 0) {
+			for (MultipartFile multipartFile : files) {
 
+				String fileName = multipartFile.getOriginalFilename();
+				if (!"".equalsIgnoreCase(fileName)) {
 
+					try {
+						InputStreamReader input = new InputStreamReader(multipartFile.getInputStream());
+						String content = IOUtils.toString(input);
 
-                       // sampleFile.setFileName(fileName);
-                        File newFile = new File(saveDirectory + "/" + fileName);
+						SampleFileType type = SampleFileParserUtil.detectType(content);
 
+						if (type == SampleFileType.TAXONOMY) {
+							TaxonomyAbundanceParser parser = new TaxonomyAbundanceParser(content);
+							TaxonomyAbundanceResult result = parser.parse();
 
-                        log.debug("save file  to: {}", newFile);
-                        multipartFile.transferTo(newFile);
-                        fileNames.add(fileName);
+							projectService.saveTaxonomyParseResult(result, project, SecurityUtils.getCurrentUser());
+							log.debug("Parse ok " + result.getSampleName());
+						}
 
-                    } catch (ParseSampleFileException e) {
-                        log.debug("", e);
-                        map.addAttribute("errorMgs", e.getMessage());
-                        return "redirect:projects/messages";
-                    }
+						// sampleFile.setFileName(fileName);
+						File newFile = new File(saveDirectory + "/" + fileName);
 
+						log.debug("save file  to: {}", newFile);
+						multipartFile.transferTo(newFile);
+						fileNames.add(fileName);
 
+					} catch (ParseSampleFileException e) {
+						log.debug("", e);
+						map.addAttribute("errorMgs", e.getMessage());
+						return "redirect:projects/messages";
+					}
 
-                }
-            }
-        }
-        redirectAttributes.addFlashAttribute("Uspjesno uplodano sve " + fileNames);
-        map.addAttribute("files", fileNames);
+				}
+			}
+		}
+		redirectAttributes.addFlashAttribute("Uspjesno uplodano sve " + fileNames);
+		map.addAttribute("files", fileNames);
 
-        return "projects/messages";
+		return "projects/messages";
 
-    }
+	}
 
 }

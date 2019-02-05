@@ -6,9 +6,6 @@ spring:
   thymeleaf:
     cache: false
 
-  security:
-
-
   datasource:
     url: jdbc:mysql://localhost:3306/bio?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
@@ -22,7 +19,8 @@ spring:
     hibernate:
       ddl-auto: none
       use-new-id-generator-mappings: true
-    show-sql: false
+    show-sql: true
+
   devtools:
     restart:
       log-condition-evaluation-delta: false

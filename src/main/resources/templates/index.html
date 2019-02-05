@@ -12,9 +12,9 @@
     <h1>Home page in</h1>
 
 
-    <a href="/projects/upload-files">Upload files</a>
-
-    <h2>Useri</h2>
+    <p>
+        <a href="projects" th:href="@{/projects}">Projects</a>
+    </p>
 
     <h1 sec:authorize="isAuthenticated()" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
     <span sec:authorize="!isAuthenticated()">
@@ -24,6 +24,8 @@
 
     </span>
 
+
+    <h2>Useri u bazi: </h2>
     <ul th:each="u : ${users}">
         <li>
             <span th:text="${u.toString()}"></span>

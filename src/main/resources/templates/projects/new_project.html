@@ -8,14 +8,44 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
 <section layout:fragment="content">
-    New project
 
-    <!--/*@thymesVar id="projectForm" type="hr.ja.bio.form.ProjectForm"*/-->
-    <form th:action="@{/addProject}" th:object="${projectForm}" method="POST">
-        <input type="text" name="name">
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="card">
+                <div class="card-header"> New project</div>
 
-        <input type="submit">
-    </form>
+
+                <div class="card-body">
+
+
+
+                    <!--/*@thymesVar id="projectForm" type="hr.ja.bio.form.ProjectForm"*/-->
+                    <form th:action="@{/projects}" th:object="${projectForm}" method="POST">
+                        <ul th:if="${#fields.hasErrors('*')}">
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                        </ul>
+
+                        <div class="form-group">
+                            <label for="name">Project name</label>
+                            <input class="form-control" th:field="*{name}" type="text" name="name" id="name"
+                                   th:classappend="${not #lists.isEmpty(#fields.errors('name'))} ? is-invalid">
+                            <div class="invalid-feedback">
+                                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect name</p>
+
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-primary">
+                    </form>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
 </section>
 
 </body>

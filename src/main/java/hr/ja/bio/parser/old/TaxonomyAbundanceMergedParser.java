@@ -1,7 +1,7 @@
-package hr.ja.bio.parser;
+package hr.ja.bio.parser.old;
 
 
-import hr.ja.bio.model.TaxonomyAbundance;
+import hr.ja.bio.parser.model.LineageAbundance;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -54,7 +54,7 @@ public class TaxonomyAbundanceMergedParser {
                     String[] split = StringUtils.split(line, "\t");
                     String path = split[0];
                     for (int i = 1; i < split.length; i++) {
-                        TaxonomyAbundance oneTax = new TaxonomyAbundance();
+                        LineageAbundance oneTax = new LineageAbundance();
                         oneTax.setAbundance(Double.parseDouble(split[i].trim()));
                         if (oneTax.getAbundance() > 0) {
                             TaxonomyAbundanceParser.parseAndAddPath(path, oneTax);

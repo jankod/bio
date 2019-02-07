@@ -82,7 +82,7 @@ public abstract class MyAbstractPersistable<PK extends Serializable> implements 
 			return false;
 		}
 
-		AbstractPersistable<?> that = (AbstractPersistable<?>) obj;
+		MyAbstractPersistable<?> that = (MyAbstractPersistable<?>) obj;
 
 		return null == this.getId() ? false : this.getId().equals(that.getId());
 	}

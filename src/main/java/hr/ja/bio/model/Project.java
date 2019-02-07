@@ -1,6 +1,7 @@
 package hr.ja.bio.model;
 
 
+import hr.ja.bio.repository.MyAbstractPersistable;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -14,8 +15,10 @@ import java.util.Set;
 @Setter
 @ToString()
 @Entity
-@FieldNameConstants
-public class Project extends AbstractPersistable<Long> implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+//@FieldNameConstants
+public class Project extends MyAbstractPersistable<Long> implements Serializable {
 
     public enum Status {
         STARTED, FINISHED

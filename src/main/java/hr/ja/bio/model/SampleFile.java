@@ -1,5 +1,6 @@
 package hr.ja.bio.model;
 
+import hr.ja.bio.repository.MyAbstractPersistable;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -14,7 +15,7 @@ import java.util.List;
 @ToString
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class SampleFile extends AbstractPersistable<Long> implements Serializable {
+public class SampleFile extends MyAbstractPersistable<Long> implements Serializable {
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "sample_id")

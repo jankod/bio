@@ -1,5 +1,6 @@
 package hr.ja.bio.model;
 
+import hr.ja.bio.repository.MyAbstractPersistable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @Table
-public class PathwayAbundance extends AbstractPersistable<Long> implements Serializable {
+public class PathwayAbundance extends MyAbstractPersistable<Long> implements Serializable {
 
     @Column
     String pathway;

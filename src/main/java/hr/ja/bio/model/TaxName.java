@@ -1,5 +1,6 @@
 package hr.ja.bio.model;
 
+import hr.ja.bio.repository.MyAbstractPersistable;
 import lombok.Data;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -8,6 +9,6 @@ import java.io.Serializable;
 
 @Data
 @Entity
-public class TaxName extends AbstractPersistable<Long> implements Serializable {
+public class TaxName extends MyAbstractPersistable<Long> implements Serializable {
 	String name;
 }

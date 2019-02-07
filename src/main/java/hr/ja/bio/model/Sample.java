@@ -1,5 +1,6 @@
 package hr.ja.bio.model;
 
+import hr.ja.bio.repository.MyAbstractPersistable;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table()
-public class Sample extends AbstractPersistable<Long> implements Serializable {
+public class Sample extends MyAbstractPersistable<Long> implements Serializable {
 
     @Column
     String name;

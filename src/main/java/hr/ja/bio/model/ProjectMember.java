@@ -1,6 +1,7 @@
 package hr.ja.bio.model;
 
 import hr.ja.bio.model.util.ProjectRole;
+import hr.ja.bio.repository.MyAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,7 @@ import java.io.Serializable;
 @Entity
 //@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "project_id"})})
 @Table
-public class ProjectMember extends AbstractPersistable<Long> implements Serializable {
+public class ProjectMember extends MyAbstractPersistable<Long> implements Serializable {
 
     @ManyToOne(optional = false)
     User user;

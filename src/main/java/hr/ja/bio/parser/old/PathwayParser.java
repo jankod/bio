@@ -7,16 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 @Slf4j
-public class PathwayParser  {
-
-
+public class PathwayParser {
 
 	public PathwayResult parse(String content) throws ParseSampleFileException {
 		String[] lines = StringUtils.split(content, "\n");
-		int lineNumber = 0;
 		PathwayResult result = new PathwayResult();
 		for (String line : lines) {
-			lineNumber++;
 			try {
 				if (line.startsWith("# Pathway")) {
 					String[] split = StringUtils.split(line, "\t");
@@ -45,7 +41,7 @@ public class PathwayParser  {
 				}
 			} catch (Throwable e) {
 				log.error("Parse error with line '{}'", line, e);
-				throw new ParseSampleFileException(e.getMessage(), line, lineNumber);
+				throw new ParseSampleFileException(e.getMessage(), line);
 			}
 		}
 
@@ -55,6 +51,5 @@ public class PathwayParser  {
 	private void parseTaxonomyPart(String taxLine, PathwayAbundance p) {
 		// g__Parabacteroides.s__Parabacteroides_distasonis
 	}
-
 
 }

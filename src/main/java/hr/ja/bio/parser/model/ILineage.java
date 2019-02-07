@@ -14,6 +14,8 @@ public interface ILineage {
     String getRank6Genus();
 
     String getRank7Species();
+    
+    String getRank8Strain();
 
     void setRank1Kingdom(String rank1Kingdom);
 

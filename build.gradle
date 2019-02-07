@@ -52,7 +52,8 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
-
+    
+    compile group: 'com.opencsv', name: 'opencsv', version: '4.4'
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 

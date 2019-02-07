@@ -5,7 +5,7 @@ import hr.ja.bio.form.FileUploadForm;
 import hr.ja.bio.form.ProjectForm;
 import hr.ja.bio.model.Project;
 import hr.ja.bio.model.User;
-import hr.ja.bio.parser.SampleFileParserUtil;
+import hr.ja.bio.parser.ParserUtil;
 import hr.ja.bio.parser.ParseSampleFileException;
 import hr.ja.bio.parser.old.TaxonomyAbundanceParser;
 import hr.ja.bio.parser.old.TaxonomyAbundanceResult;
@@ -119,7 +119,7 @@ public class ProjectController {
 						InputStreamReader input = new InputStreamReader(multipartFile.getInputStream());
 						String content = IOUtils.toString(input);
 
-						SampleFileType type = SampleFileParserUtil.detectType(content);
+						SampleFileType type = ParserUtil.detectType(content);
 
 						if (type == SampleFileType.TAXONOMY) {
 							TaxonomyAbundanceParser parser = new TaxonomyAbundanceParser(content);

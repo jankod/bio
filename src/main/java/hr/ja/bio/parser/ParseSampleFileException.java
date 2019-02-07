@@ -1,37 +1,54 @@
 package hr.ja.bio.parser;
 
+import java.io.FileNotFoundException;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ParseSampleFileException extends Exception {
 
-    private String line = "";
-    private int lineNumber = 0;
+	private static final long serialVersionUID = -7991107393062327335L;
 
-    public ParseSampleFileException(String msg, String line) {
-        super(msg + " line:" + line);
-        this.line = line;
-    }
+	private String line;
 
-    public ParseSampleFileException(String msg, String line, int lineNumber) {
-        super(msg + " line number" + lineNumber + " line: " + line);
-        this.line = line;
-        this.lineNumber = lineNumber;
-    }
+	private int lineNumber;
 
-    public ParseSampleFileException(String msg) {
-        super(msg);
-    }
+	public ParseSampleFileException(String msg, String line) {
+		super(msg);
+		this.line = line;
+	}
 
-    public String getLine() {
-        return line;
-    }
+	public ParseSampleFileException(String msg) {
+		super(msg);
+	}
 
-    public int getLineNumber() {
-        return lineNumber;
-    }
+	public ParseSampleFileException(String msg, Throwable cause, String line, int lineNumber) {
+		super(msg, cause);
+		this.line = line;
+		this.lineNumber = lineNumber;
+	}
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).toString();
-    }
+	public ParseSampleFileException(Throwable cause) {
+		super(cause);
+	}
+
+	public int getLineNumber() {
+		return lineNumber;
+	}
+
+	public String getLine() {
+		return line;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this).toString();
+	}
+//	
+//	@Override
+//	public String getMessage() {
+//		return String.format("%s. \nLine:%d Line:%s", super.getMessage(), lineNumber, line);
+//	}
 }

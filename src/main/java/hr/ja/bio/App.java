@@ -15,8 +15,8 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 @SpringBootApplication
 public class App {
     private static final Logger log = LoggerFactory.getLogger(App.class);
-    @Autowired
-    private DispatcherServlet servlet;
+//    @Autowired
+//    private DispatcherServlet servlet;
 
     public static void main(String[] args) {
 
@@ -28,7 +28,7 @@ public class App {
 
     @Bean
     public CommandLineRunner getCommandLineRunner(ApplicationContext context) {
-        servlet.setThrowExceptionIfNoHandlerFound(true);
+//        servlet.setThrowExceptionIfNoHandlerFound(true);
         return args -> {
 
         };

@@ -5,6 +5,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import hr.ja.bio.repository.MyAbstractPersistable;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -18,7 +20,8 @@ import java.util.Set;
 @Setter
 @ToString(exclude = "password")
 @NoArgsConstructor
-public class User extends AbstractPersistable<Long> implements Serializable {
+@AllArgsConstructor
+public class User extends MyAbstractPersistable<Long> implements Serializable {
 
 
     @Column(nullable = false, unique = true)

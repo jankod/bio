@@ -19,12 +19,9 @@ public class MyUserDetailsService implements UserDetailsService {
     UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
-//    @Autowired
-//    BCryptPasswordEncoder passwordEncoder;
 
 
     public MyUserDetailsService(PasswordEncoder passwordEncoder) {
-
         this.passwordEncoder = passwordEncoder;
     }
 

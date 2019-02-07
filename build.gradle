@@ -44,7 +44,7 @@ dependencies {
     // runtimeOnly('com.h2database:h2')
     runtimeOnly('mysql:mysql-connector-java')
 
-    compileOnly('org.projectlombok:lombok:1.18.4')
+    compile('org.projectlombok:lombok:1.18.4')
     //  testImplementation('org.springframework.security:spring-security-test')
     //   compile("org.springframework.boot:spring-boot-starter-actuator")
 
@@ -52,8 +52,11 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
-    
+
     compile group: 'com.opencsv', name: 'opencsv', version: '4.4'
+
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.197'
+
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 

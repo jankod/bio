@@ -1,6 +1,7 @@
 package hr.ja.bio.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import hr.ja.bio.repository.MyAbstractPersistable;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+
 //@FieldNameConstants
 public class Project extends MyAbstractPersistable<Long> implements Serializable {
 
@@ -37,10 +39,12 @@ public class Project extends MyAbstractPersistable<Long> implements Serializable
     @Enumerated(EnumType.STRING)
     Status status;
 
-
-    @OneToMany( mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany( mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     Set<ProjectMember> members;
 
+
+    @JsonIgnore
     @OneToMany(mappedBy = "project", orphanRemoval = true)
     Set<Sample> samples;
 

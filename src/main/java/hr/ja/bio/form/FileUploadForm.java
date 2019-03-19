@@ -1,5 +1,6 @@
 package hr.ja.bio.form;
 
+import hr.ja.bio.parser.model.SampleFileType;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +12,8 @@ public class FileUploadForm {
 
     @NotNull
     Long projectId;
+
+    SampleFileType fileType;
 
     List<MultipartFile> files;
 

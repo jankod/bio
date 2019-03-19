@@ -1,5 +1,6 @@
 package hr.ja.bio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Length;
@@ -36,6 +37,7 @@ public class User extends MyAbstractPersistable<Long> implements Serializable {
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
     @Column
+    @JsonIgnore
     String password;
 
 
@@ -45,7 +47,7 @@ public class User extends MyAbstractPersistable<Long> implements Serializable {
     private Role role;
 
 
-    public enum Role  {
+    public enum Role {
         ADMIN, USER
     }
 }

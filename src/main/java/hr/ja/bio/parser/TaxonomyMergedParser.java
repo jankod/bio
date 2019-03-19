@@ -17,7 +17,7 @@ public class TaxonomyMergedParser implements IFileParser<List<TaxonomyResult>> {
 	@Override
 	public void parseLine(String line, int lineNumber) {
 		if (lineNumber == 0) {
-			List<String> samplesName = parseTaxonomyMeregedHeader(line);
+			List<String> samplesName = parseTaxonomyMergedHeader(line);
 			for (String name : samplesName) {
 				result.add(new TaxonomyResult(name));
 			}
@@ -51,7 +51,7 @@ public class TaxonomyMergedParser implements IFileParser<List<TaxonomyResult>> {
 		return result;
 	}
 
-	public List<String> parseTaxonomyMeregedHeader(String line) {
+	public List<String> parseTaxonomyMergedHeader(String line) {
 		// SampleID CSM5FZ4M CSM5MCUO CSM5MCVL CSM5MCVN CSM5MCW6
 		String[] split = StringUtils.splitByWholeSeparator(line, "\t");
 		ArrayList<String> result = new ArrayList<String>(split.length - 1);

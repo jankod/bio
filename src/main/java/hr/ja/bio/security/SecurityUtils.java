@@ -55,11 +55,16 @@ public final class SecurityUtils {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //        log.debug("details {}", auth.getDetails());
 //        log.debug("princi {}", auth.getPrincipal());
-        if(auth.isAuthenticated()) {
-            MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
+        if(auth.isAuthenticated() ) {
+            Object principal = auth.getPrincipal();
+            if("anonymousUser".equals(principal)) {
+                log.debug("principal = {}", principal);
+                return null;
+            }
+            MyUserDetails userDetails = (MyUserDetails) principal;
             return userDetails.getUser();
         }
-
+        log.warn("Not find current user user ");
         return null;
     }
 

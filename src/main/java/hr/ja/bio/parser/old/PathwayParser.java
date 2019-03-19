@@ -6,6 +6,8 @@ import hr.ja.bio.parser.model.PathwayResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+
+@Deprecated
 @Slf4j
 public class PathwayParser {
 

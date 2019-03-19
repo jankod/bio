@@ -9,6 +9,6 @@ import java.io.Serializable;
 
 @Data
 @Entity
-public class TaxName extends MyAbstractPersistable<Long> implements Serializable {
+public class TaxName extends MyAbstractPersistable<Integer> implements Serializable {
 	String name;
 }

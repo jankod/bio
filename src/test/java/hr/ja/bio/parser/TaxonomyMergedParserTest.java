@@ -11,7 +11,6 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
-import hr.ja.bio.parser.ParserUtil;
 import hr.ja.bio.parser.model.LineageAbundance;
 import hr.ja.bio.parser.model.TaxonomyResult;
 
@@ -65,7 +64,7 @@ public class TaxonomyMergedParserTest {
 	@Test
 	public void testParseTaxonomyMeregedHeader() throws Exception {
 		String line = "SampleID\tCSM5FZ4M\tCSM5MCUO\tCSM5MCVL\tCSM5MCVN\tCSM5MCW6 ";
-		List<String> result = new TaxonomyMergedParser().parseTaxonomyMeregedHeader(line);
+		List<String> result = new TaxonomyMergedParser().parseTaxonomyMergedHeader(line);
 		assertEquals(5, result.size());
 
 		assertEquals("CSM5FZ4M", result.get(0));

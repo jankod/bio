@@ -56,7 +56,7 @@ public class ParserTestUtil {
 	}
 
 	@Test
-	public void testParseTaxonomyMereged() {
+	public void testParseTaxonomyMerged() {
 
 	}
 }

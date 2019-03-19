@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Deprecated
 @Slf4j
 public class TaxonomyAbundanceParser {
 
@@ -47,7 +48,7 @@ public class TaxonomyAbundanceParser {
 
                 tax.setAbundance(Double.parseDouble(split[1].trim()));
                 parseAndAddPath(path, tax);
-                
+
                 result.addTaxonAbundance(tax);
 
 
@@ -55,7 +56,7 @@ public class TaxonomyAbundanceParser {
                 log.error("Parse error with line '{}'", line, e);
             }
         }
-        
+
         return result;
     }
 
@@ -63,9 +64,9 @@ public class TaxonomyAbundanceParser {
         String[] split = StringUtils.splitByWholeSeparator(path, "|");
         for (String p : split) {
             String rankName = p.substring(3);
-            
+
             if (p.startsWith("k__")) {
-            	
+
                 tax.getLineage().setRank1Kingdom(rankName);
             }
             if (p.startsWith("p__")) {

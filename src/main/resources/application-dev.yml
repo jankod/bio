@@ -1,5 +1,5 @@
 bio:
-  load-database: false
+  load-database: true
   upload-dir: C:\Projekti\IdeaProjects\bio\misc_local\uploads
 
 spring:
@@ -17,9 +17,10 @@ spring:
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       use-new-id-generator-mappings: true
-    show-sql: true
+    show-sql: false
+    format_sql: true
 
   devtools:
     restart:
@@ -33,9 +34,9 @@ spring:
 server:
   address: 127.0.0.1
   port: 8001
-  error:
-    whitelabel:
-      enabled: false
+#  error:
+#    whitelabel:
+#      enabled: false
 
 debug: true
 

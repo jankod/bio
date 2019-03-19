@@ -11,12 +11,14 @@ import hr.ja.bio.repository.ProjectMemberRepository;
 import hr.ja.bio.repository.ProjectRepository;
 import hr.ja.bio.repository.UserRepository;
 import hr.ja.bio.security.SecurityUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class ProjectService {
 
     @Autowired
@@ -31,7 +33,7 @@ public class ProjectService {
 //    private EntityManager em;
 
     public List<Project> getProjectsFromUser(User user) {
-        return projectRepository.findAllByMembersUserId(user.getId());
+        return projectRepository.findAllFromUser(user.getId());
     }
 
     public void saveProject(ProjectForm form) {
@@ -50,9 +52,9 @@ public class ProjectService {
         projectMemberRepository.save(projectMember);
     }
 
-    public void saveTaxonomyParseResult(TaxonomyAbundanceResult result, Project project, User currentUser) {
-
-
-
+    public List<Project> findAllProjectOfCurrentUser() {
+        User user = SecurityUtils.getCurrentUser();
+        log.debug("User id {}", user.getId());
+        return projectRepository.findAllFromUser(user.getId());
     }
 }

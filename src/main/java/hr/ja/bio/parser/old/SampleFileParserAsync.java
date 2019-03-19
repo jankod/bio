@@ -11,6 +11,7 @@ import java.io.StringReader;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+@Deprecated
 @Slf4j
 public class SampleFileParserAsync implements Callable<TaskResult> {
 

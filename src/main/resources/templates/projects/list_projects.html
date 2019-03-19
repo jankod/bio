@@ -9,8 +9,8 @@
 <section layout:fragment="content">
     <h1>List projects</h1>
 
-    <ul th:each="p : ${projects}">
-        <li >
+    <ul class="list-group" th:each="p : ${projects}">
+        <li class="list-group-item">
            <span  th:text="${p.getName()}"></span> <a href="#" th:href="@{/projects/{id}/upload-files(id=${p.id})}">Add files to project</a>
         </li>
     </ul>
@@ -18,6 +18,28 @@
     <a class="btn btn-primary" href="create" th:href="@{/projects/new-project}">Create new project</a>
 
 
+    <h4>Sve variable:</h4>
+    <table>
+        <tr th:each="var : ${#vars.getVariableNames()}">
+            <td th:text="${var}"></td>
+            <td th:text="${#vars.getVariable(var)}"></td>
+        </tr>
+        <!-- Adding these manually because they're considered special.
+             see https://github.com/thymeleaf/thymeleaf/blob/thymeleaf-3.0.3.RELEASE/src/main/java/org/thymeleaf/context/WebEngineContext.java#L199
+        -->
+        <tr>
+            <td>param</td>
+            <td th:text="${#vars.getVariable('param')}"></td>
+        </tr>
+        <tr>
+            <td>session</td>
+            <td th:text="${#vars.getVariable('session')}"></td>
+        </tr>
+        <tr>
+            <td>application</td>
+            <td th:text="${#vars.getVariable('application')}"></td>
+        </tr>
+    </table>
 </section>
 
 </body>

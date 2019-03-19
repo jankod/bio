@@ -4,6 +4,7 @@ import hr.ja.bio.conf.BioConfig;
 import hr.ja.bio.form.FileUploadForm;
 import hr.ja.bio.form.ProjectForm;
 import hr.ja.bio.model.Project;
+import hr.ja.bio.model.SampleFile;
 import hr.ja.bio.model.User;
 import hr.ja.bio.parser.ParserUtil;
 import hr.ja.bio.parser.ParseSampleFileException;
@@ -37,15 +38,20 @@ import java.util.List;
 @RequestMapping("/projects")
 public class ProjectController {
 
-	@Autowired ProjectService projectService;
+	@Autowired
+	ProjectService projectService;
 
-	@Autowired ProjectRepository projectRepository;
+	@Autowired
+	ProjectRepository projectRepository;
 
-	@Autowired SampleRepository sampleRepository;
+	@Autowired
+	SampleRepository sampleRepository;
 
-	@Autowired SampleFileRepository sampleFileRepository;
+	@Autowired
+	SampleFileRepository sampleFileRepository;
 
-	@Autowired ProjectMemberRepository projectMemberRepository;
+	@Autowired
+	ProjectMemberRepository projectMemberRepository;
 
 	private BioConfig config;
 
@@ -57,10 +63,10 @@ public class ProjectController {
 	@GetMapping("")
 	public String listProjects(Model model) {
 		User user = SecurityUtils.getCurrentUser();
-		log.debug("Current user {}", user);
+		// log.debug("Current user {}", user);
 		List<Project> projects = projectService.getProjectsFromUser(user);
 		model.addAttribute("projects", projects);
-		log.debug("evo list projects {}", projects);
+		// log.debug("evo list projects {}", projects);
 
 		return "projects/list_projects";
 	}
@@ -87,6 +93,8 @@ public class ProjectController {
 	@GetMapping("{projectId}/upload-files")
 	public String showFileuploadForm(@PathVariable Long projectId, Model model) {
 		Project project = projectRepository.getOne(projectId);
+
+		// model.addAttribute("file_types", SampleFileType.values() );
 		model.addAttribute("project", project);
 
 		return "/projects/upload-files";
@@ -102,54 +110,31 @@ public class ProjectController {
 			throw new RuntimeException("Project not find with id " + uploadForm.getProjectId());
 		}
 
-		@NotNull String saveDirectory = config.getUploadDir();
-		log.debug("save directory  {}", saveDirectory);
+		// TODO check project of user
 
 		List<MultipartFile> files = uploadForm.getFiles();
 
-		List<String> fileNames = new ArrayList<>();
-
 		if (null != files && files.size() > 0) {
 			for (MultipartFile multipartFile : files) {
-
 				String fileName = multipartFile.getOriginalFilename();
-				if (!"".equalsIgnoreCase(fileName)) {
-
-					try {
-						InputStreamReader input = new InputStreamReader(multipartFile.getInputStream());
-						String content = IOUtils.toString(input);
-
-						SampleFileType type = ParserUtil.detectType(content);
-
-						if (type == SampleFileType.TAXONOMY) {
-							TaxonomyAbundanceParser parser = new TaxonomyAbundanceParser(content);
-							TaxonomyAbundanceResult result = parser.parse();
-
-							projectService.saveTaxonomyParseResult(result, project, SecurityUtils.getCurrentUser());
-							log.debug("Parse ok " + result.getSampleName());
-						}
-
-						// sampleFile.setFileName(fileName);
-						File newFile = new File(saveDirectory + "/" + fileName);
-
-						log.debug("save file  to: {}", newFile);
-						multipartFile.transferTo(newFile);
-						fileNames.add(fileName);
-
-					} catch (ParseSampleFileException e) {
-						log.debug("", e);
-						map.addAttribute("errorMgs", e.getMessage());
-						return "redirect:projects/messages";
-					}
-
-				}
+				byte[] fileBytes = IOUtils.toByteArray(multipartFile.getInputStream());
+				SampleFile sampleFile = new SampleFile();
+				sampleFile.setProject(project);
+				sampleFile.setFile(fileBytes);
+				sampleFile.setType(uploadForm.getFileType());
+				sampleFile.setFileName(fileName);
+				sampleFileRepository.save(sampleFile);
+				log.debug("Save {}", fileName);
 			}
 		}
-		redirectAttributes.addFlashAttribute("Uspjesno uplodano sve " + fileNames);
-		map.addAttribute("files", fileNames);
+		redirectAttributes.addFlashAttribute("message", "Uspjesno uplodano sve ");
+		// map.addAttribute("files", fileNames);
+		return "redirect:/projects/messages";
+	}
 
-		return "projects/messages";
-
+	@GetMapping("/messages")
+	public String message() {
+		return "projects/messages.html";
 	}
 
 }
